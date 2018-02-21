@@ -17,6 +17,7 @@ package com.sius.salesforce.psi.filetype;
 
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
+import com.sius.salesforce.psi.ApexDeclarationElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

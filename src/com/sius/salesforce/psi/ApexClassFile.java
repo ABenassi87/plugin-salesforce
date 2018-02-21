@@ -22,6 +22,10 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.sius.salesforce.filetype.ApexClassFileType;
 import com.sius.salesforce.language.ApexLanguage;
+import com.sius.salesforce.psi.filetype.ApexClassDeclaration;
+import com.sius.salesforce.psi.filetype.ApexEnumDeclaration;
+import com.sius.salesforce.psi.filetype.ApexInterfaceDeclaration;
+import com.sius.salesforce.psi.filetype.ApexTriggerDefinition;
 import com.sius.salesforce.util.Icons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +57,7 @@ public class ApexClassFile extends PsiFileBase {
         return getVirtualFile().getNameWithoutExtension().endsWith("Exception");
     }
 
-   /* public boolean isInterface() {
+    public boolean isInterface() {
         return PsiTreeUtil.getChildOfType(this, ApexInterfaceDeclaration.class) != null;
     }
 
@@ -67,7 +71,7 @@ public class ApexClassFile extends PsiFileBase {
 
     public boolean isTrigger() {
         return PsiTreeUtil.getChildOfType(this, ApexTriggerDefinition.class) != null;
-    }*/
+    }
 
     @Nullable
     @Override

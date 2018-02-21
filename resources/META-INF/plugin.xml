@@ -1,45 +1,130 @@
 <idea-plugin>
-  <id>com.sius.salesforce</id>
-  <name>Salesforce Plugin</name>
-  <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>com.sius.salesforce</id>
+    <name>Salesforce Plugin</name>
+    <version>1.0</version>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
 
-  <description><![CDATA[
+    <description><![CDATA[
       Enter short description for your plugin here.<br>
       <em>most HTML tags may be used</em>
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
       Add change notes here.<br>
       <em>most HTML tags may be used</em>
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="145.0"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.0"/>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-  </extensions>
+    <extensions defaultExtensionNs="com.intellij">
 
-  <actions>
-    <!-- Add your actions here -->
-  </actions>
+        <applicationConfigurable instance="com.sius.salesforce.settings.application.ApplicationSettingsConfigurable"/>
 
-  <project-components>
-    <component>
-      <implementation-class>com.sius.salesforce.project.SalesforceProject</implementation-class>
-    </component>
-  </project-components>
-  <module-components>
-    <component>
-      <implementation-class>com.sius.salesforce.project.wizard.SalesforceProjectWizard</implementation-class>
-    </component>
-  </module-components>
+        <applicationConfigurable instance="com.sius.salesforce.settings.instances.InstancesConfigurable"/>
+
+        <applicationService
+                serviceImplementation="com.sius.salesforce.settings.application.ApplicationSettingsPersistentStateComponent"
+                serviceInterface="com.sius.salesforce.settings.application.ApplicationSettingsPersistentStateComponent"/>
+
+        <applicationService
+                serviceImplementation="com.sius.salesforce.settings.instances.InstancesPersistentStateComponent"
+                serviceInterface="com.sius.salesforce.settings.instances.InstancesPersistentStateComponent"/>
+
+        <projectConfigurable instance="com.sius.salesforce.settings.project.ProjectSettingsConfigurable"/>
+
+        <projectService
+                serviceImplementation="com.sius.salesforce.settings.project.ProjectSettingsPersistentStateComponent"
+                serviceInterface="com.sius.salesforce.settings.project.ProjectSettingsPersistentStateComponent"/>
+
+        <projectService
+                serviceInterface="com.sius.salesforce.service.SoapClientService"
+                serviceImplementation="com.sius.salesforce.service.SoapClientService"/>
+
+        <projectService
+                serviceInterface="com.sius.salesforce.service.ConnectionManagerService"
+                serviceImplementation="com.sius.salesforce.service.ConnectionManagerService"/>
+
+        <projectService
+                serviceInterface="com.sius.salesforce.service.RestClientService"
+                serviceImplementation="com.sius.salesforce.service.RestClientService"/>
+
+        <projectService
+                serviceInterface="com.sius.salesforce.service.ToolingRestClientService"
+                serviceImplementation="com.sius.salesforce.service.ToolingRestClientService"/>
+
+        <projectService
+                serviceInterface="com.sius.salesforce.service.VersionsService"
+                serviceImplementation="com.sius.salesforce.service.VersionsService"/>
+
+        <moduleBuilder builderClass="com.sius.salesforce.project.wizard.SalesForceModuleBuilder" id="DEMO_STEP" order="first"/>
+
+        <moduleType id="SALESFORCE_MODULE" implementationClass="com.sius.salesforce.project.wizard.SalesForceModuleType"/>
+
+        <sdkType id="SALESFORCE_SDK" implementation="com.sius.salesforce.sdk.SalesForceSdkType"/>
+        <!-- Add your extensions here -->
+        <fileTypeFactory implementation="com.sius.salesforce.filetype.ApexClassFileTypeFactory"/>
+
+        <fileTypeFactory implementation="com.sius.salesforce.filetype.ApexTriggerFileTypeFactory"/>
+
+        <lang.parserDefinition id="apexClass" language="Apex"
+                               implementationClass="com.sius.salesforce.parser.ApexClassParserDefinition"/>
+
+        <lang.parserDefinition id="apexTrigger" language="Apex"
+                               implementationClass="com.sius.salesforce.parser.ApexTriggerParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory language="Apex"
+                                       implementationClass="com.sius.salesforce.filetype.ApexSyntaxHighlighterFactory"/>
+
+        <colorSettingsPage implementation="com.sius.salesforce.filetype.ApexColorSettingsPage"/>
+
+        <annotator language="Apex" implementationClass="com.sius.salesforce.annotation.ApexAnnotationAnnotator"/>
+        <annotator language="Apex"
+                   implementationClass="com.sius.salesforce.annotation.ApexDuplicateClassNameAnnotator"/>
+        <annotator language="Apex" implementationClass="com.sius.salesforce.annotation.ApexExtendsClassNameAnnotator"/>
+        <annotator language="Apex" implementationClass="com.sius.salesforce.annotation.ApexFileNameAnnotator"/>
+        <annotator language="Apex" implementationClass="com.sius.salesforce.annotation.ApexInterfaceNameAnnotator"/>
+
+        <completion.contributor language="Apex" implementationClass="com.sius.salesforce.completion.ApexKeywordCompletionContributor"/>
+
+        <psi.referenceContributor implementation="com.sius.salesforce.reference.ApexReferenceContributor"/>
+
+        <lang.findUsagesProvider language="Apex" implementationClass="com.sius.salesforce.findusages.ApexFindUsagesProvider"/>
+        
+        <lang.refactoringSupport language="Apex" implementationClass="com.sius.salesforce.refactoring.ApexRefactoringSupportProvider"/>
+
+        <lang.findUsagesProvider language="Apex" implementationClass="com.sius.salesforce.findusages.ApexFindUsagesProvider"/>
+
+        <lang.psiStructureViewFactory language="Apex" implementationClass="com.sius.salesforce.structure.ApexStructureViewFactory"/>
+
+        <lang.commenter language="Apex" implementationClass="com.sius.salesforce.commenter.ApexCommenter"/>
+
+        <lang.braceMatcher language="Apex" implementationClass="com.sius.salesforce.matcher.ApexBraceMatcher"/>
+
+        <gotoSymbolContributor implementation="com.sius.salesforce.navigation.ApexChooseByNameContributor"/>
+
+        <gotoClassContributor implementation="com.sius.salesforce.navigation.ApexGotoClassContributor"/>
+
+        <fileIconPatcher implementation="com.sius.salesforce.icon.ApexFileIconPatcher"/>
+
+        <!-- -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+    <project-components>
+        
+    </project-components>
+    <module-components>
+        
+    </module-components>
 </idea-plugin>

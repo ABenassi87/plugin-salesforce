@@ -25,7 +25,11 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.sius.salesforce.filetype.ApexClassFileType;
+import com.sius.salesforce.psi.filetype.ApexClassDeclaration;
+import com.sius.salesforce.psi.filetype.ApexDeclaration;
+import com.sius.salesforce.psi.filetype.ApexInterfaceDeclaration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +42,7 @@ import java.util.List;
  */
 public abstract class ApexPsiUtilities {
 
-/*    @NotNull
+    @NotNull
     public static List<ApexClassDeclaration> getApexClassDeclarations(@NotNull Project project, @NotNull String name) {
         List<ApexClassDeclaration> result = new ArrayList<ApexClassDeclaration>();
 
@@ -110,7 +114,7 @@ public abstract class ApexPsiUtilities {
             }
         }
         return result;
-    }*/
+    }
 
 /*
     @Nullable
@@ -131,6 +135,6 @@ public abstract class ApexPsiUtilities {
             return result.getIdentifier();
         }
         return null;
-    }
-*/
+    }*/
+
 }

@@ -16,6 +16,7 @@
 package com.sius.salesforce.psi.filetype;
 
 import com.intellij.psi.PsiElement;
+import com.sius.salesforce.psi.ApexReferenceElement;
 import org.jetbrains.annotations.NotNull;
 
 public interface ApexReference extends ApexReferenceElement {
